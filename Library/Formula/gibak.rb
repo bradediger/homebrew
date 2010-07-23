@@ -5,7 +5,7 @@ class Gibak < Formula
   @specs = {:branch => 'master'}
   homepage 'http://eigenclass.org/hiki/gibak-0.3.0'
 
-  depends_on 'omake'
+  depends_on 'o-make'
   depends_on 'objective-caml'
   depends_on 'objective-caml-findlib'
   depends_on 'objective-caml-fileutils'

@@ -3,8 +3,9 @@ require 'hardware'
 
 class Postgresql < Formula
   homepage 'http://www.postgresql.org/'
-  url 'http://ftp9.us.postgresql.org/pub/mirrors/postgresql/source/v9.0.4/postgresql-9.0.4.tar.bz2'
-  md5 '80390514d568a7af5ab61db1cda27e29'
+  url 'http://ftp9.us.postgresql.org/pub/mirrors/postgresql/source/v9.1.1/postgresql-9.1.1.tar.bz2'
+  md5 '061a9f17323117c9358ed60f33ecff78'
+  
 
   depends_on 'readline'
   depends_on 'libxml2' if MacOS.leopard? # Leopard libxml is too old
@@ -54,14 +55,7 @@ class Postgresql < Formula
     ENV.O2 if Hardware.intel_family == :core
 
     system "./configure", *args
-    system "make install"
-    system "make install-docs"
-
-    contrib_directories = Dir.glob("contrib/*").select{ |path| File.directory?(path) } - ['contrib/start-scripts']
-
-    contrib_directories.each do |contrib_directory|
-      system "cd #{contrib_directory}; make install"
-    end
+    system "make install-world"
 
     (prefix+'org.postgresql.postgres.plist').write startup_plist
     (prefix+'org.postgresql.postgres.plist').chmod 0644
